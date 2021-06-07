@@ -24,6 +24,23 @@ class ReviewsCarousel extends Component {
     }
   }
 
+  renderUserReview = reviewItem => {
+    const {username, companyName, description} = reviewItem
+
+    return (
+      <div className="user-review-div">
+        <img
+          src={reviewItem.imgUrl}
+          alt={`${username}-avatar`}
+          className="user-image"
+        />
+        <p className="user-name">{username}</p>
+        <p className="company-name">{companyName}</p>
+        <p className="review">{description}</p>
+      </div>
+    )
+  }
+
   render() {
     const {reviewsData} = this.props
     const {reviewIndex} = this.state
@@ -32,11 +49,6 @@ class ReviewsCarousel extends Component {
       <div className="bg-container">
         <div className="carousel-div">
           <h1 className="heading">Reviews</h1>
-          <img
-            src={reviewItem.imgUrl}
-            alt={`${reviewItem.username}-avatar`}
-            className="user-image"
-          />
           <div className="arrows-div">
             <button
               onClick={this.leftClick}
@@ -49,7 +61,7 @@ class ReviewsCarousel extends Component {
                 alt="leftArrow"
               />
             </button>
-            <p className="user-name">{reviewItem.username}</p>
+            {this.renderUserReview(reviewItem)}
             <button
               onClick={this.rightClick}
               testid="rightArrow"
@@ -62,8 +74,6 @@ class ReviewsCarousel extends Component {
               />
             </button>
           </div>
-          <p className="company-name">{reviewItem.companyName}</p>
-          <p className="review">{reviewItem.description}</p>
         </div>
       </div>
     )
